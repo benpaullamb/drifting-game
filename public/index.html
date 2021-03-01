@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Drifting Game</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div id="app">
+			<div class="game">
+				<canvas id="canvas" width="1024" height="768" />
+			</div>
+
+			<div class="controls">
+				<h1 class="controls__title">Controls</h1>
+
+				<section class="section">
+					<div class="section__heading">
+						<h2 class="section__title">Levels</h2>
+						<div class="buttons">
+							<button class="button">Create New</button>
+						</div>
+					</div>
+
+					<div class="levels">
+						<div
+							v-for="(level, i) in levels"
+							class="levels__level"
+							:class="{
+								'levels__level--first': i === 0,
+							}"
+						>
+							<span
+								class="levels__name"
+								:class="{
+								'levels__name--bold': level.name === selectedLevel.name
+							}"
+								>{{level.name}}</span
+							>
+							<div class="buttons">
+								<button
+									class="button"
+									:disabled="level.name === selectedLevel.name"
+								>
+									Load
+								</button>
+								<button class="button">Delete</button>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="section">
+					<div class="section__heading">
+						<h2 class="section__title">
+							{{selectedLevel.name}}'s Level Settings
+						</h2>
+						<div class="buttons">
+							<button class="button">Save</button>
+						</div>
+					</div>
+
+					<div class="settings">
+						<div class="settings__option">
+							<label for="level-name" class="label">Level Name</label>
+							<input
+								v-model="selectedLevel.name"
+								type="text"
+								id="level-name"
+								class="input"
+							/>
+						</div>
+
+						<div class="settings__option">
+							<label for="level-colour" class="label">Level Colour</label>
+							<div class="level-colour">
+								<div
+									class="level-colour__colour"
+									:style="`background: ${selectedLevel.bgColour}`"
+								></div>
+								<input
+									v-model="selectedLevel.bgColour"
+									type="text"
+									id="level-colour"
+									class="input"
+								/>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+		<script src="bundle.js"></script>
+	</body>
+</html>
